@@ -18,6 +18,10 @@ function FirstComponent() {
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
     });
+
+    // renderer.shadowMap.enabled = true;
+    // renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.current && container.current.appendChild(renderer.domElement);
 
@@ -108,8 +112,28 @@ function FirstComponent() {
     const light = new THREE.DirectionalLight(0xffffff, 2); // soft white light
     light.position.set(5, 5, 5);
     const helperLight = new THREE.DirectionalLightHelper(light, 1);
-    scene.add(light);
-    scene.add(helperLight);
+    // scene.add(light);
+    // scene.add(helperLight);
+
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // soft white light
+    ambientLight.position.set(1, 5, 5);
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0x00ff00, 5, 0);
+    pointLight.position.set(5, 5, 5);
+    pointLight.castShadow = true;
+    pointLight.shadow.mapSize.width = 1024;
+    pointLight.shadow.mapSize.height = 1024;
+    scene.add(pointLight);
+
+    const spotLight = new THREE.SpotLight(0x0000ff, 1, 50, Math.PI / 4, 1, 0);
+    spotLight.position.set(5, 3, 0);
+    spotLight.target.position.set(0, 0, 0); // Where it points
+    spotLight.castShadow = true;
+    scene.add(spotLight);
+
+    const hemisphereLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
+    scene.add(hemisphereLight);
 
     /* ---------------  Mesh Objects ----------------- */
     const PlaneObject = new THREE.Mesh(planeGeometry, material);
