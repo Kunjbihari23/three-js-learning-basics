@@ -1,7 +1,8 @@
-import ThreeBasic from "./components/ThreeBasic";
+import RubiksCube from "./components/RubiksCube";
 
 const App = () => {
-  return <ThreeBasic />;
+  // return <ThreeBasic />;
+  return <RubiksCube />;
 };
 
 export default App;
