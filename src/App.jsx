@@ -1,7 +1,7 @@
-import FirstComponent from "./components/FirstComponent";
+import ThreeBasic from "./components/ThreeBasic";
 
 const App = () => {
-  return <FirstComponent />;
+  return <ThreeBasic />;
 };
 
 export default App;

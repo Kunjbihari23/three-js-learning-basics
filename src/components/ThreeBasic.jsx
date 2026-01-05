@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-function FirstComponent() {
+const ThreeBasic = () => {
   const container = useRef();
   useEffect(() => {
     /* ----------- basic scene , camera , renderer with orbit control ------------*/
@@ -195,6 +195,7 @@ function FirstComponent() {
     // scene.add(cameraHelper);
 
     const clock = new THREE.Clock();
+    let prevTime = 0;
 
     let animationId;
 
@@ -202,10 +203,16 @@ function FirstComponent() {
     const animate = function () {
       animationId = requestAnimationFrame(animate);
 
-      // const elapsedTime = clock.getElapsedTime();
+      const currTime = clock.getElapsedTime();
+
+      const delta = currTime - prevTime;
+      console.log("🚀 ~ animate ~ delta:", clock.getDelta(), delta);
+      prevTime = currTime;
+
       // boxHelper.update();
-      // cube.rotation.x = elapsedTime + 0.1;
-      // cube.rotation.y = elapsedTime + 0.1;
+      cubeObject.rotation.y += THREE.MathUtils.degToRad(1) * delta * 50;
+      Math.sin(currTime);
+      cubeObject.scale.x = Math.sin(currTime) + 2;
 
       orbitsControl.update();
       renderer.render(scene, camera);
@@ -230,6 +237,6 @@ function FirstComponent() {
   }, []);
 
   return <div ref={container} />;
-}
+};
 
-export default FirstComponent;
+export default ThreeBasic;
