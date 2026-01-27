@@ -20,7 +20,7 @@ const RubiksCube = () => {
       75,
       window.innerWidth / window.innerHeight,
       0.1,
-      50
+      50,
     );
 
     const orbitalControls = new OrbitControls(camera, container.current);
@@ -40,29 +40,20 @@ const RubiksCube = () => {
     };
 
     const CubeGroup = new THREE.Group();
+    scene.add(CubeGroup);
+
+    const blackMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 });
 
     for (let x = -1; x <= 1; x++) {
       for (let y = -1; y <= 1; y++) {
         for (let z = -1; z <= 1; z++) {
           const cubeMaterials = [
-            x === 1
-              ? Materials.red
-              : new THREE.MeshStandardMaterial({ color: 0x000000 }),
-            x === -1
-              ? Materials.orange
-              : new THREE.MeshStandardMaterial({ color: 0x000000 }),
-            y === 1
-              ? Materials.white
-              : new THREE.MeshStandardMaterial({ color: 0x000000 }),
-            y === -1
-              ? Materials.yellow
-              : new THREE.MeshStandardMaterial({ color: 0x000000 }),
-            z === 1
-              ? Materials.green
-              : new THREE.MeshStandardMaterial({ color: 0x000000 }),
-            z === -1
-              ? Materials.blue
-              : new THREE.MeshStandardMaterial({ color: 0x000000 }),
+            x === 1 ? Materials.red : blackMaterial,
+            x === -1 ? Materials.orange : blackMaterial,
+            y === 1 ? Materials.white : blackMaterial,
+            y === -1 ? Materials.yellow : blackMaterial,
+            z === 1 ? Materials.green : blackMaterial,
+            z === -1 ? Materials.blue : blackMaterial,
           ];
 
           const cube = new THREE.Mesh(cubeGeometry, cubeMaterials);
@@ -71,8 +62,6 @@ const RubiksCube = () => {
         }
       }
     }
-
-    scene.add(CubeGroup);
 
     const light = new THREE.DirectionalLight(0xffffff, 2);
     light.position.set(5, 5, 5);
